@@ -1,13 +1,13 @@
 import java.io.IOException;
 
 public class Game {
-    private PlusDalmatin countDalmatinsFound;
+    private static PlusDalmatin countDalmatinsFound;
 
     public Game() {
         countDalmatinsFound = new PlusDalmatin(); // Инициализация отслеживателя
     }
 
-    public int getCountDalmatins() {
+    public static int getCountDalmatins() {
         return countDalmatinsFound.getCount();
     }
     public void PlusOne() {
@@ -22,7 +22,7 @@ public class Game {
            Level level = new Level(true, "Спальня", 3);
           System.out.print(level.getName());
           int countDalmatins = level.Level_1(level, game);
-           game.printCompliments();
+           printCompliments();
 
            int yesOrNo;
           do {
@@ -32,7 +32,7 @@ public class Game {
                  System.out.print(level.getName());
                    level.Level_2(level, game, countDalmatins);
                } else {
-                    game.PrintRepeatInput();
+                    PrintRepeatInput();
                 }
           } while (yesOrNo != 0);
            break;
