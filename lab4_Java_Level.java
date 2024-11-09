@@ -6,11 +6,11 @@ import java.util.Scanner;
 
 public class Level {
     private String name;
-    private int countDalmatins, countPlace;
+    private static int countDalmatins, countPlace;
 
     public ArrayList<Dalmatin> dalmatins = new ArrayList<>();
     public ArrayList<Place> places = new ArrayList<>();
-    public static final int MAX_DOGS = 4;
+    public static int MAX_DOGS = 4;
 
     Level(boolean isBedroom, String name, int countDalmatins) {
         // Инициализация далматинцев
@@ -39,11 +39,11 @@ public class Level {
         }
     }
 
-    public int getCountPlace() {
+    public static int getCountPlace() {
         return countPlace;
     }
 
-    public int getCountDalmatins() { return countDalmatins; }
+    public static int getCountDalmatins() { return countDalmatins; }
     public String getName(){ return name; }
 
     public int PrintLocationPlace(Level level, int countPlace){
@@ -134,3 +134,4 @@ public class Level {
     }
 
 }
+
