@@ -218,7 +218,7 @@ void Game::Play() {
                 cout << level.getName() << endl;
                 level.Level_2(level, *this);
             }
-            else this->PrintRepeatInput();
+            else PrintRepeatInput();
         } while (YesOrNo != 0);
         break;
     }
@@ -227,7 +227,7 @@ void Game::Play() {
     int Level::PrintLocationPlace(Level& level, int countPlace) {
     int numberPlace;
     for (int i = 0; i < countPlace; i++) {
-        PlaceWithDalmatian& place = level.getPlacePointer(i); // Используем метод getPlacePointer
+        PlaceWithDalmatian& place = getPlacePointer(i); // Используем метод getPlacePointer
         cout << place.getName() << endl; // Выводим название
     }
     cout << "\nВведите пункт: ";
@@ -238,14 +238,14 @@ void Game::Play() {
   void Level::ViewingFoundDalmatians(Level& level, Game& game) {
       cout << "\nВы нашли " << game.getCountDalmatins() << "/4 далматинцев:" << endl;  
       for (int i = 0; i < game.getCountDalmatins(); i++) {
-          Dalmatian* dalmatian = level.getDalmatianPointer(i);
+          Dalmatian* dalmatian = getDalmatianPointer(i);
         cout << dalmatian->getName() << endl;
     }
 }
 
 void Level::dalmatianFound(Level& level, Game& game, int number) {
-    if (level.place[number - 1].getExistDalmatian() == true) {
-        level.place[number - 1].setExistDalmatian(false);    
+    if (place[number - 1].getExistDalmatian() == true) {
+        place[number - 1].setExistDalmatian(false);    
         game++;
 
         ViewingFoundDalmatians(level, game);
@@ -274,7 +274,7 @@ void Level::Level_1(Level& level, Game& game) {
     while (game.getCountDalmatins() < getCountDalmatins()) {
         int number;
         number = PrintLocationPlace(level, getCountPlace());
-        if (level.RangeCheck(number, getCountPlace()) == 0) level.dalmatianFound(level, game, number);
+        if (RangeCheck(number, getCountPlace()) == 0) dalmatianFound(level, game, number);
         else game.PrintRepeatInput();
     }
 }
@@ -282,8 +282,8 @@ void Level::Level_2(Level& level, Game& game) {
     while (game.getCountDalmatins() < MAX_DALMATIANS) {
         int number;
         number = PrintLocationPlace(level, getCountPlace());
-        if (level.RangeCheck(number, level.getCountPlace()) == 0) {
-            if (number != 2) level.dalmatianFound(level, game, number);
+        if (RangeCheck(number, getCountPlace()) == 0) {
+            if (number != 2) dalmatianFound(level, game, number);
             else {
                 cout << "\nО нет! Клетка закрыта на замок! Вам нужно отгадать код!" << endl;
                 cage.CodeOfCage(level, game, number);
@@ -311,8 +311,6 @@ void Cage::CodeOfCage(Level& level, Game& game, int number) {
         do {
             cout << "\nВведите код:" << endl;
             cin >> input;
-            cout << "Введенный код: '" << input << "'" << endl;
-            cout << "Код для сравнения: '" << cage.getAnswerCode() << "'" << endl;
             if (input.empty()) {
                 cout << "Код не может быть пустым. Пожалуйста, попробуйте снова." << endl;
                 continue; // Пропустить текущую итерацию цикла
